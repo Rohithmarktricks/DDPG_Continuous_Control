@@ -12,7 +12,9 @@ A  simple project to show how to implement an actor-critic policy gradient netwo
 ## Project Structure:
 ```
 ├───.ipynb_checkpoints
+├───.ipynb_checkpoints
 ├───images
+├───plots
 ├───python
 │   ├───communicator_objects
 │   ├───curricula
@@ -21,12 +23,11 @@ A  simple project to show how to implement an actor-critic policy gradient netwo
 │   └───unitytrainers
 │       ├───bc
 │       └───ppo
-│ Banana_Windows_x86_64.zip
-│ dqn_agent.py
+│ ddpg_agent.py
 │ model.py
-│ Navigation.ipynb
+│ Continuous_Control.ipynb
 │ README.md
-│ replay_buffer.py
+│ memory.py
 │ Report.pdf
 │ test_agent.py
 │ train_agent.py
@@ -40,6 +41,11 @@ Important files and folders :
 - 
 - `model.py:` Contains the source code for Actor-Critic Network.
 - `ddpg_agent.py:` Contains the source code for DDPG Agent, utilized Actor-Critic network defined in model.py module.
+- `memory.py:` Contains the source code for Replay Buffer.
+- `utils.py:` Contains the source code for generating Plots, CPU/GPU Device.
+- `train_agent.py:` Source code for training agent.
+- `test_agent.py:` Source code for testing agent.
+- `ou_noise.py:` Source code for Ornstein-Uhlenbeck Noise.
 - `saved_models:` Folder that contains the weigts of trained DQN (.pth format)
 - `scores:` Folder that contains the scores/rewards earned by the DQN agent (.csv format)
 - `python:` The files in this directory are the ML-agents toolkit files and the dependencies thare are required to run the Banana Environment.
