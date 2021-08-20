@@ -1,8 +1,3 @@
-
-
-
-
-
 # DDPG_Continuous_Control
 
 ## Actor-Critic Policy Gradient Network agent for controlling the Robotic Hand movement in UnityML agent.
@@ -46,6 +41,7 @@ Important files and folders :
 - `train_agent.py:` Source code for training agent.
 - `test_agent.py:` Source code for testing agent.
 - `ou_noise.py:` Source code for Ornstein-Uhlenbeck Noise.
+- `Continuous_Control.ipynb:` Jupyter Notebook (for the project, trained on GPU)
 - `saved_models:` Folder that contains the weigts of trained DQN (.pth format)
 - `scores:` Folder that contains the scores/rewards earned by the DQN agent (.csv format)
 - `python:` The files in this directory are the ML-agents toolkit files and the dependencies thare are required to run the Banana Environment.
@@ -90,14 +86,13 @@ For this project, two separate versions of the Unity environemnt are provided:
 
 ### Option 1: Solve the environment with single agent.
 
- - The task is episodic, and in order to solve the environment, the
-   agetn must get an average score of +30 over 100 consecutive episodes
+ - The task is episodic, and in order to solve the environment, the agent must get an average score of +30 over 100 consecutive episodes.
 
 ### Option 2: Solve the environment with 20 identical agents.
 
 The barrier for solving the second verion of the environment is slightly different, to take into account the presence of many agents. In particular, the agents must get an average score of +30 over 100 consecutive episodes, and over all agents). Specifically,
 
-After each episode, we add up the rewards that each agent received(withoug discounting), to get a score for each agent. This yeild 20 (potentially different) scores. We then take the average of those 20 scores.
+After each episode, we add up the rewards that each agent received(withoug discounting), to get a score for each agent. This yeilds 20 (potentially different) scores. We then take the average of those 20 scores.
 
 This yields an average score for each episode (where the average is over all 20 agents).
 
@@ -150,7 +145,7 @@ cd DDPG_Continuous_Control/python
 ![Kernel selection in Jupyter Notebook](images/kernel_image_jupyter.png)
 
 ## Download the Unity Environment:
-For this project, you don't need to install Unity. For the sake of easiness, a standalone application of the Banana's Unity Environment has already been built and can be used.
+For this project, you don't need to install Unity. For the sake of easiness, a standalone application of the Reacher's Unity Environment has already been built and can be used.
 
 Download the relevant environment zip file from one of the links below based on the operating system that you ar using.
 
@@ -171,12 +166,12 @@ After you have downloaded the relevant zip file, navigate to where you downloade
 
 ## Training 
 6. In the `DDPG_Continuous_Control` folder, you may chose one of the below methods to run train the agent.
-- You may chose to open `Navigation.ipynb` jupyter notebook to experiment with the environment and tune agent performance.
+- You may chose to open `Continuous_Control.ipynb` jupyter notebook to experiment with the environment and tune agent performance.
 - Else, you can try running the below commands in the terminal to train/test agent in the Banana Environment:
 ```bash
 conda activate drlnd
 cd DDPG_Continuous_Control
-DDPG_Continuous_Control >python train_agent.py Reacher/Reacher.exe DQN
+DDPG_Continuous_Control >python train_agent.py <Location/Path to Reacher/Reacher.exe>
 ```
 ![DDPG-Agent that's been trained](images/reacher.gif)
 
@@ -185,7 +180,7 @@ DDPG_Continuous_Control >python train_agent.py Reacher/Reacher.exe DQN
 ```bash
 conda activate drlnd
 cd DDPG_Continuous_Control
-DDPG_Continuous_Control >python test_agent.py Reacher/Reacher.exe <path to saved models weights .pth file> DQN
+DDPG_Continuous_Control >python test_agent.py <Location/path to Reacher/Reacher.exe> <path to saved models weights .pth file>
 ```
 
 ## Training Performance
