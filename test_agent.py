@@ -6,19 +6,13 @@ Reference: https://github.com/Rohithmarktricks/Navigation_DQN/blob/main/test_age
 '''
 
 # import modules
-import troch
-import time
-import random
-import sys
-import numpy as np
-from train_agent  import get_environment_info, get_agent
-from ddpg_agent import Agent
-from unityagents import UnityEnvironment
-from model import Actor, Critic
-import argparse
+import torch
+from train_agent import get_environment_info, get_agent
+from argparse import ArgumentParser
+
 
 def test_agent_in_env(env, agent, brain_name):
-	'''This method tests teh agent in the environment'''
+	"""This method tests teh agent in the environment"""
 
 	# reset and get the environment details
 	env_info = env.reset(train_mode=False)[brain_name]
@@ -50,18 +44,20 @@ def test_agent_in_env(env, agent, brain_name):
 		if done:
 			break
 
-	print(f"Episode: {i_episode}, the agent has been to score {round(score, 3)}..")
+	print(f"The agent has been to score {round(score, 3)}..")
 
 	env.close()
 	print('Done with testing the agent, so closing the environment...')
 
 
 def main():
-
-	paraser = ArgumentParser(description='Testing the agent', usage='python test_agent.py <location of the Unity ML environment> <path to actor_network.pth file>')
+	parser = ArgumentParser(description='Testing the agent',
+	                        usage='python test_agent.py <location of the Unity ML environment> <path to '
+	                              'actor_network.pth file>')
 	parser.add_argument('location', type=str, help='Location of the Unity ML environment')
-	paraser.add_argument('actor_path', type=str, help="Location of the actor network models weights file. Please check saved_models folder.")
-	
+	parser.add_argument('actor_path', type=str,
+	                    help="Location of the actor network models weights file. Please check saved_models folder.")
+
 	# get the namespace
 	namespace = parser.parse_args()
 

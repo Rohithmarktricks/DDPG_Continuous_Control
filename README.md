@@ -84,11 +84,11 @@ For this project, two separate versions of the Unity environemnt are provided:
 
 ## Solving the environemnt
 
-### Option 1: Solve the environment with single agent.
+### Option 1: Solve the environment with single agent. (This Repository)
 
  - The task is episodic, and in order to solve the environment, the agent must get an average score of +30 over 100 consecutive episodes.
 
-### Option 2: Solve the environment with 20 identical agents.
+### Option 2: Solve the environment with 20 identical agents. (Future Work, yet to be implemented)
 
 The barrier for solving the second verion of the environment is slightly different, to take into account the presence of many agents. In particular, the agents must get an average score of +30 over 100 consecutive episodes, and over all agents). Specifically,
 

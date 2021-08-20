@@ -1,4 +1,4 @@
-'''
+"""
 Source code for Actor and Critic networks.
 @author: Rohith Banka.
 
@@ -6,7 +6,7 @@ This module contains the Network architecture for both Actor and Critic networks
 The Actor-Critic network architecture is taken from this paper:
 https://arxiv.org/pdf/1509.02971.pdf
 
-'''
+"""
 
 # import modules
 import numpy as np
@@ -16,10 +16,10 @@ import torch.nn.functional as F
 
 
 def hidden_init(layer):
-    '''This function is invoked to fix the weights, for better learning'''
+    """This function is invoked to fix the weights, for better learning"""
     fan_in = layer.weight.data.size()[0]
     lim = 1. / np.sqrt(fan_in)
-    return (-lim, lim)
+    return -lim, lim
 
 
 class Actor(nn.Module):
