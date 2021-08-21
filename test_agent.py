@@ -44,7 +44,7 @@ def test_agent_in_env(env, agent, brain_name):
 		if done:
 			break
 
-	print(f"The agent has been to score {round(score, 3)}..")
+	print(f"The agent has been able to score {round(score, 3)}..")
 
 	env.close()
 	print('Done with testing the agent, so closing the environment...')
@@ -69,10 +69,12 @@ def main():
 	agent = get_agent(state_size=state_size, action_size=action_size)
 
 	try:
-		agent.network.load_state_dict(torch.load(actor_path))
+		agent.actor_local.load_state_dict(torch.load(actor_path))
 		print("Loaded the weights successfully")
 	except Exception as e:
 		raise Exception(f"{e}")
+
+	test_agent_in_env(env, agent, brain_name)
 
 
 if __name__ == "__main__":
