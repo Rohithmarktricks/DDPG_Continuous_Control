@@ -7,7 +7,6 @@ A  simple project to show how to implement an actor-critic policy gradient netwo
 ## Project Structure:
 ```
 ├───.ipynb_checkpoints
-├───.ipynb_checkpoints
 ├───images
 ├───plots
 ├───python
@@ -26,6 +25,7 @@ A  simple project to show how to implement an actor-critic policy gradient netwo
 │ Report.pdf
 │ test_agent.py
 │ train_agent.py
+│ train_agent_dist.py
 │ unity-environment.log
 ├───saved_models
 ├───scores
@@ -38,7 +38,8 @@ Important files and folders :
 - `ddpg_agent.py:` Contains the source code for DDPG Agent, utilized Actor-Critic network defined in model.py module.
 - `memory.py:` Contains the source code for Replay Buffer.
 - `utils.py:` Contains the source code for generating Plots, CPU/GPU Device.
-- `train_agent.py:` Source code for training agent.
+- `train_agent.py:` Source code for training 1 agent.
+- `train_agent_dist.py:` Source code for training 20 agents.
 - `test_agent.py:` Source code for testing agent.
 - `ou_noise.py:` Source code for Ornstein-Uhlenbeck Noise.
 - `Continuous_Control.ipynb:` Jupyter Notebook (for the project, trained on GPU)
@@ -84,17 +85,16 @@ For this project, two separate versions of the Unity environemnt are provided:
 
 ## Solving the environemnt
 
-### Option 1: Solve the environment with single agent. (This Repository)
+### Option 1: Solve the environment with single agent.
 
  - The task is episodic, and in order to solve the environment, the agent must get an average score of +30 over 100 consecutive episodes.
+ - You may refer to `train_agent.py` module. 1 agent is assigned with 1 brain, which encapsulates the decision making process.
 
-### Option 2: Solve the environment with 20 identical agents. (Future Work, yet to be implemented)
+### Option 2: Solve the environment with 20 identical agents.
 
-The barrier for solving the second verion of the environment is slightly different, to take into account the presence of many agents. In particular, the agents must get an average score of +30 over 100 consecutive episodes, and over all agents). Specifically,
-
-After each episode, we add up the rewards that each agent received(withoug discounting), to get a score for each agent. This yeilds 20 (potentially different) scores. We then take the average of those 20 scores.
-
-This yields an average score for each episode (where the average is over all 20 agents).
+- The barrier for solving the second verion of the environment is slightly different, to take into account the presence of many agents. In particular, the agents must get an average score of +30 over 100 consecutive episodes, and over all agents). Specifically, After each episode, we add up the rewards that each agent received(withoug discounting), to get a score for each agent. This yeilds 20 (potentially different) scores. We then take the average of those 20 scores.
+- This yields an average score for each episode (where the average is over all 20 agents).
+- You may refer to `train_agent_dist.py` module. Due to hardware limitations and training time constraint, I have used the strategy to assing 1 brain to 20 agents.
 
 
 Installation and getting started with:
@@ -171,7 +171,8 @@ After you have downloaded the relevant zip file, navigate to where you downloade
 ```bash
 conda activate drlnd
 cd DDPG_Continuous_Control
-DDPG_Continuous_Control >python train_agent.py <Location/Path to Reacher/Reacher.exe>
+DDPG_Continuous_Control >python train_agent.py <Location/Path to Reacher/Reacher.exe> <number of episodes> <steps in each episode> (command for 1 agent training)
+DDPG_Continuous_Control >python train_agent_dist.py <Location/Path to Reacher20/Reacher.exe> <number of episodes> <steps in each episode> (command for 20 agents training)
 ```
 ![DDPG-Agent that's been trained](images/reacher.gif)
 
