@@ -1,14 +1,3 @@
-"""
-Source code for Actor and Critic networks.
-@author: Rohith Banka.
-
-This module contains the Network architecture for both Actor and Critic networks.
-The Actor-Critic network architecture is taken from this paper:
-https://arxiv.org/pdf/1509.02971.pdf
-
-"""
-
-# import modules
 import numpy as np
 import torch
 import torch.nn as nn
@@ -16,10 +5,9 @@ import torch.nn.functional as F
 
 
 def hidden_init(layer):
-    """This function is invoked to fix the weights, for better learning"""
     fan_in = layer.weight.data.size()[0]
-    lim = 1. / np.sqrt(fan_in)
-    return -lim, lim
+    lim = 1./np.sqrt(fan_in)
+    return (-lim, lim)
 
 
 class Actor(nn.Module):
@@ -28,14 +16,11 @@ class Actor(nn.Module):
     def __init__(self, state_size, action_size, seed, fc1_units=128,
                  fc2_units=128):
         """Initialize parameters and build model.
-        
-        Params:
-        =======
-         state_size (int): Dimension of each state
-         action_size (int): Dimension of each action
-         seed (int): Random seed
-         fc1_units (int): Number of nodes in first hidden layer
-         fc2_units (int): Number of nodes in second hidden layer
+        :param state_size: int. Dimension of each state
+        :param action_size: int. Dimension of each action
+        :param seed: int. Random seed
+        :param fc1_units: int. Number of nodes in first hidden layer
+        :param fc2_units: int. Number of nodes in second hidden layer
         """
         super(Actor, self).__init__()
         self.seed = torch.manual_seed(seed)
@@ -57,8 +42,6 @@ class Actor(nn.Module):
     def forward(self, state):
         """
         Build an actor (policy) network that maps states -> actions.
-        The total number of neurons in the output layer = total possible actions.
-        since, the actor is DDPG Agent, the output is a real number (not probability, so no softmax layer)
         """
         if state.dim() == 1:
             state = torch.unsqueeze(state, 0)
@@ -78,14 +61,11 @@ class Critic(nn.Module):
     def __init__(self, state_size, action_size, seed, fcs1_units=128,
                  fc2_units=128):
         """Initialize parameters and build model.
-
-        Params:
-        ======
-         state_size (int): Dimension of each state
-         action_size (int): Dimension of each action
-         seed (int): Random seed
-         fcs1_units (int): Nb of nodes in the first hiddenlayer
-         fc2_units (int): Nb of nodes in the second hidden layer
+        :param state_size: int. Dimension of each state
+        :param action_size: int. Dimension of each action
+        :param seed: int. Random seed
+        :param fcs1_units: int. Nb of nodes in the first hiddenlayer
+        :param fc2_units: int. Nb of nodes in the second hidden layer
         """
         super(Critic, self).__init__()
         self.seed = torch.manual_seed(seed)
@@ -106,10 +86,12 @@ class Critic(nn.Module):
     def forward(self, state, action):
         """
         Build a critic (value) network that maps
-        (state, action) pairs -> Q-values (just 1 output neuron)
-         state: tuple.
-         action: tuple.
+        (state, action) pairs -> Q-values
+        :param state: tuple.
+        :param action: tuple.
         """
+        # if state.dim() == 1:
+        #     state = torch.unsqueeze(state, 0)
         xs = F.relu(self.fcs1(state))
         # applying a batch Normalization on the first layer output
         xs = self.bn1(xs)
