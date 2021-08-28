@@ -1,3 +1,4 @@
+
 # DDPG_Continuous_Control
 
 ## Deep Deterministic Policy Gradient Network agent for controlling the Robotic Hand movement in UnityML agent.
@@ -85,7 +86,7 @@ For this project, two separate versions of the Unity environemnt are provided:
 
  - The first verstion contains a single agent. 
  - The second version contains 20 identical agents, each with its own copy of the environment.
-	 - The second version is useful for algorithms like, PPO, A3C, D4PG that use multiple (non-interacting, parallel) copies of the same agent to distribute the task of gathering experience.
+     - The second version is useful for algorithms like, PPO, A3C, D4PG that use multiple (non-interacting, parallel) copies of the same agent to distribute the task of gathering experience.
 
 
 ## Solving the environemnt
@@ -192,7 +193,11 @@ DDPG_Continuous_Control >python test_agent.py <Location/path to Reacher/Reacher.
 ## Training Performance
 The agent has been trained over 10 times, and on average the agent has taken around 170+ episodes to solve the Unity ML Reacher Environment i.e., to score the atleast +30.0 average reward over 100 episodes. However, the least number of episodes required to solve the environment was 175 episodes).
 
+### Training - Plots
+#### 1 DDPG Agent
 ![sample plot of DDPG agent Epochs vs Average Score](images/Average_score.jpg)
+
+#### 20 DDPG Agents
 ![sample plot of 20 DDPG agents linked to same brain Epochs vs Average Score](images/20ddpg.PNG)
 
 ## Sample Testing (Jupyter Notebook)
