@@ -49,8 +49,8 @@ Important files and folders :
 - `noise.py:` Source code for Ornstein-Uhlenbeck Noise.
 - `utils.py:` Contains the source code for device mapping(CPU/GPU), plotting etc.
 - `Continuous_Control.ipynb:` Jupyter Notebook (for the project, trained on GPU)
-- `saved_models:` Folder that contains the weigts of trained DQN (.pth format)
-- `scores:` Folder that contains the scores/rewards earned by the DQN agent (.csv format)
+- `saved_models:` Folder that contains the weigts of trained DDPG (.pth format)
+- `scores:` Folder that contains the scores/rewards earned by the DDPG agent (.csv format)
 - `python:` The files in this directory are the ML-agents toolkit files and the dependencies thare are required to run the Reacher Environment.
 
 Code has been extracted from the code examples provided by Udacity Deep Reinforcement Learning Team, 2021.
@@ -68,12 +68,12 @@ The example uses a modified version of the Unity ML-Agents Reacher example Envir
 
 State Space
 -
-The agent is trained from vector input data (not the raw pixels as input data). The state space consists of 33 variables corresping to position, rotation, velocity and angular velocities of the arm.
+The agent is trained from vector input data (not the raw pixels as input data). The state space consists of 33 variables corresponding to position, rotation, velocity and angular velocities of the arm.
 
 
  Action Space
  -
-Since we are training an agent to take actions that can have continuous values, the action here is a vector of 4 number, corresponding to torque applicable to two joints. And, every entry in the action vector (consisting 4 entries) should be a number between -1 and 1.
+Since we are training an agent to take actions that can have continuous values, the action here is a vector of 4 numbers, corresponding to torque applicable to two joints. And, every entry in the action vector (consisting 4 entries) should be a number between -1 and 1.
 
 
 Reward:
