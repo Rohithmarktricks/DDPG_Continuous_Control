@@ -28,9 +28,9 @@ def get_plot(csv_filename):
 	y_ = list(chain(*df.iloc[0:].values.tolist()))
 	x_ = [i for i in range(len(y_))]
 
-	scores_average_windows = 100
+	scores_average_window = 100
 	avg_scores = []
-	start_time = time.strftime("%Y%m%d-%H%M%S")
+	start_time = strftime("%Y%m%d-%H%M%S")
 
 	for i_episode in range(len(x_)):
 		average_score = np.mean(y_[i_episode - min(i_episode, scores_average_window): i_episode+1])

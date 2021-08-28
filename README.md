@@ -1,6 +1,6 @@
 # DDPG_Continuous_Control
 
-## Actor-Critic Policy Gradient Network agent for controlling the Robotic Hand movement in UnityML agent.
+## Deep Deterministic Policy Gradient Network agent for controlling the Robotic Hand movement in UnityML agent.
 
 A  simple project to show how to implement an actor-critic policy gradient network agetn using Python, PyTorch, and a ML-Agents environment. This project has been done as a part of Udacity Nanodegree in Deep Reinforcement Learning (DRL).
 
@@ -17,15 +17,18 @@ A  simple project to show how to implement an actor-critic policy gradient netwo
 │   └───unitytrainers
 │       ├───bc
 │       └───ppo
-│ ddpg_agent.py
-│ model.py
+│ models.py
 │ Continuous_Control.ipynb
 │ README.md
 │ memory.py
+| noise.py
+| utils.py
 │ Report.pdf
 │ test_agent.py
 │ train_agent.py
-│ train_agent_dist.py
+│ train_agentV2.py
+│ ddpg_agent.py
+│ ddpg_agentV2.py
 │ unity-environment.log
 ├───saved_models
 ├───scores
@@ -34,22 +37,24 @@ A  simple project to show how to implement an actor-critic policy gradient netwo
 
 Important files and folders :
 - 
-- `model.py:` Contains the source code for Actor-Critic Network.
+- `models.py:` Contains the source code for Actor-Critic Network.
 - `ddpg_agent.py:` Contains the source code for DDPG Agent, utilized Actor-Critic network defined in model.py module.
+- `ddpg_agentV2.py:` Contains the source code for training 20 DDPG Agent, utilized Actor-Critic network defined in model.py module.
 - `memory.py:` Contains the source code for Replay Buffer.
 - `utils.py:` Contains the source code for generating Plots, CPU/GPU Device.
 - `train_agent.py:` Source code for training 1 agent.
-- `train_agent_dist.py:` Source code for training 20 agents.
+- `train_agentV2.py:` Source code for training 20 agents.
 - `test_agent.py:` Source code for testing agent.
-- `ou_noise.py:` Source code for Ornstein-Uhlenbeck Noise.
+- `noise.py:` Source code for Ornstein-Uhlenbeck Noise.
+- `utils.py:` Contains the source code for device mapping(CPU/GPU), plotting etc.
 - `Continuous_Control.ipynb:` Jupyter Notebook (for the project, trained on GPU)
 - `saved_models:` Folder that contains the weigts of trained DQN (.pth format)
 - `scores:` Folder that contains the scores/rewards earned by the DQN agent (.csv format)
-- `python:` The files in this directory are the ML-agents toolkit files and the dependencies thare are required to run the Banana Environment.
+- `python:` The files in this directory are the ML-agents toolkit files and the dependencies thare are required to run the Reacher Environment.
 
 Code has been extracted from the code examples provided by Udacity Deep Reinforcement Learning Team, 2021.
 
-The repository also includes Mac/Linux/Windows version of a sample Unity environment, Banana for testing. The Unity application and testing environment was developed using ML-agents Beta v0.4. The version of the Banana environemnt employed for this project was developed for the Udacity Deep Reinforcement Learning Nanodegree course. For more information please refer to the following link:  [Udacity Deep Reinforcement Learning](https://www.udacity.com/courses/deep-reinforcement-learning-nanodegree--nd893)
+The repository also includes Mac/Linux/Windows version of a sample Unity environment, Reacher for testing. The Unity application and testing environment was developed using ML-agents Beta v0.4. The version of the Reacher environemnt employed for this project was developed for the Udacity Deep Reinforcement Learning Nanodegree course. For more information please refer to the following link:  [Udacity Deep Reinforcement Learning](https://www.udacity.com/courses/deep-reinforcement-learning-nanodegree--nd893)
 
  For more information about the Unity ML Agents Toolkit visit:  [Unity ML Toolkit](https://github.com/Unity-Technologies/ml-agents)
 
@@ -94,7 +99,7 @@ For this project, two separate versions of the Unity environemnt are provided:
 
 - The barrier for solving the second verion of the environment is slightly different, to take into account the presence of many agents. In particular, the agents must get an average score of +30 over 100 consecutive episodes, and over all agents). Specifically, After each episode, we add up the rewards that each agent received(withoug discounting), to get a score for each agent. This yeilds 20 (potentially different) scores. We then take the average of those 20 scores.
 - This yields an average score for each episode (where the average is over all 20 agents).
-- You may refer to `train_agent_dist.py` module. Due to hardware limitations and training time constraint, I have used the strategy to assing 1 brain to 20 agents.
+- You may refer to `train_agentV2.py` module. Due to hardware limitations and training time constraint, I have used the strategy to assing 1 brain to 20 agents.
 
 
 Installation and getting started with:
@@ -167,12 +172,12 @@ After you have downloaded the relevant zip file, navigate to where you downloade
 ## Training 
 6. In the `DDPG_Continuous_Control` folder, you may chose one of the below methods to run train the agent.
 - You may chose to open `Continuous_Control.ipynb` jupyter notebook to experiment with the environment and tune agent performance.
-- Else, you can try running the below commands in the terminal to train/test agent in the Banana Environment:
+- Else, you can try running the below commands in the terminal to train/test agent in the Reacher Environment:
 ```bash
 conda activate drlnd
 cd DDPG_Continuous_Control
 DDPG_Continuous_Control >python train_agent.py <Location/Path to Reacher/Reacher.exe> <number of episodes> <steps in each episode> (command for 1 agent training)
-DDPG_Continuous_Control >python train_agent_dist.py <Location/Path to Reacher20/Reacher.exe> <number of episodes> <steps in each episode> (command for 20 agents training)
+DDPG_Continuous_Control >python train_agentV2.py <Location/Path to Reacher20/Reacher.exe> <number of episodes> <steps in each episode> (command for 20 agents training)
 ```
 ![DDPG-Agent that's been trained](images/reacher.gif)
 
@@ -188,6 +193,7 @@ DDPG_Continuous_Control >python test_agent.py <Location/path to Reacher/Reacher.
 The agent has been trained over 10 times, and on average the agent has taken around 170+ episodes to solve the Unity ML Reacher Environment i.e., to score the atleast +30.0 average reward over 100 episodes. However, the least number of episodes required to solve the environment was 175 episodes).
 
 ![sample plot of DDPG agent Epochs vs Average Score](images/Average_score.jpg)
+![sample plot of 20 DDPG agents linked to same brain Epochs vs Average Score](images/20ddpg.PNG)
 
 ## Sample Testing (Jupyter Notebook)
 To test the Unity ML environment and the agent, Jupyter Notebook `Continuous_Control.ipynb` has been provided. You can quickly change the code/ tweak few hyperparameters to get started.
@@ -197,6 +203,9 @@ To test the Unity ML environment and the agent, Jupyter Notebook `Continuous_Con
 - D4PG tries to improve the accuracy of DDPG with the help of distributional approach. A softmax function is used to prioritize the experiences and provide them to the actor.
 
 ## References:
-1. https://julien-vitay.net/deeprl/DPG.html
-2. [CONTINUOUS CONTROL WITH DEEP REINFORCEMENT LEARNING](https://arxiv.org/pdf/1509.02971.pdf)
-3. Ravichandiran, Sudharsan. Deep Reinforcement Learning with Python: Master classic RL, deep RL, distributional RL, inverse RL, and more with OpenAI Gym and TensorFlow, 2nd Edition. Packt Publishing.
+1. https://towardsdatascience.com/deep-deterministic-policy-gradients-explained-2d94655a9b7b
+2. https://medium.com/intro-to-artificial-intelligence/the-actor-critic-reinforcement-learning-algorithm-c8095a655c14
+3. https://julien-vitay.net/deeprl/DPG.html
+4. https://medium.com/intro-to-artificial-intelligence/deep-deterministic-policy-gradient-ddpg-an-off-policy-reinforcement-learning-algorithm-38ca8698131b
+5. [CONTINUOUS CONTROL WITH DEEP REINFORCEMENT LEARNING](https://arxiv.org/pdf/1509.02971.pdf)
+6. Ravichandiran, Sudharsan. Deep Reinforcement Learning with Python: Master classic RL, deep RL, distributional RL, inverse RL, and more with OpenAI Gym and TensorFlow, 2nd Edition. Packt Publishing.

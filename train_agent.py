@@ -144,7 +144,7 @@ def main():
     env, env_info, brain_name, brain, state_size, action_size = get_environment_info(location)
 
     agent = get_agent(state_size, action_size, seed=20)
-    train_ddpg(env, agent, brain_name, num_episodes=episodes, max_t=10000)
+    train_ddpg(env, agent, brain_name, num_episodes=episodes, max_t=steps)
 
 if __name__ == '__main__':
     main()
