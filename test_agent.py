@@ -8,6 +8,7 @@ Reference: https://github.com/Rohithmarktricks/Navigation_DQN/blob/main/test_age
 # import modules
 import torch
 from train_agent import get_environment_info, get_agent
+from ddpg_agent import Agent
 from argparse import ArgumentParser
 
 

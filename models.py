@@ -16,11 +16,14 @@ class Actor(nn.Module):
     def __init__(self, state_size, action_size, seed, fc1_units=128,
                  fc2_units=128):
         """Initialize parameters and build model.
-        :param state_size: int. Dimension of each state
-        :param action_size: int. Dimension of each action
-        :param seed: int. Random seed
-        :param fc1_units: int. Number of nodes in first hidden layer
-        :param fc2_units: int. Number of nodes in second hidden layer
+
+        Params:
+        =======
+            state_size(int):    Dimension of each state
+            action_size(int):   Dimension of each action
+            seed(int):          Random seed
+            fc1_units(int):     Number of nodes in first hidden layer
+            fc2_units(int):     Number of nodes in second hidden layer
         """
         super(Actor, self).__init__()
         self.seed = torch.manual_seed(seed)
@@ -42,6 +45,12 @@ class Actor(nn.Module):
     def forward(self, state):
         """
         Build an actor (policy) network that maps states -> actions.
+
+        Params:
+        ======
+
+            state(float):   The current state that the agent is in the environment.
+
         """
         if state.dim() == 1:
             state = torch.unsqueeze(state, 0)
@@ -87,8 +96,11 @@ class Critic(nn.Module):
         """
         Build a critic (value) network that maps
         (state, action) pairs -> Q-values
-        :param state: tuple.
-        :param action: tuple.
+
+        Params:
+        =======
+            state(float): tuple.
+            action(float): tuple.
         """
         # if state.dim() == 1:
         #     state = torch.unsqueeze(state, 0)

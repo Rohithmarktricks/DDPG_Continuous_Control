@@ -1,3 +1,10 @@
+'''module train_agentV2.py contains the funcions to 
+train the version2 of the training algorithm.
+This trains the 20 agents that are linked to the single brain.
+
+@author: Rohith Banka
+'''
+
 import argparse
 import warnings
 import numpy as np
@@ -13,6 +20,20 @@ from ddpg_agentV2 import Agent
 def train_ddpg_agents(env, brain_name, agent, n_episodes=1000, max_t=10000,
                         solved_score=31.0, consec_episodes=100, print_every=1,
                         train_mode=True):
+    '''Main function to train the 20 agents.
+
+    Params:
+    =======
+    env             (UnityEnvironment Object): Reacher environment object
+    brain_name      (key):                     Brain name to load the brain of Unity ML agent
+    agent           (DDPG object):             DDPG (Actor Critic) agent
+    n_episodes      (int):                     Total number of episodes to train the agent
+    max_t           (int):                     Length of trajectory in the episode.
+    required_score  (int):                     Score limit defined by Udacity to declare that the agent has solved the environment
+    steps_for_avg   (int):                     To calculate the average of rewards over 100 episodes.
+    print_every     (int):                     To print the status.
+    train_mode      (boolean):                 True to indicate that the agent is in training mode.
+    '''
 
     mean_scores=[]
     min_scores = []

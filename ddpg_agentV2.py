@@ -1,3 +1,12 @@
+'''
+Module ddpg_agentV2.py contains the source code for the DDPG Agent that trains 20 agents linked to the same brain.
+@author: Rohith Banka
+
+This code is bit similar to ddpg_agent.py script, except for the agent's step() method.
+'''
+
+
+
 import numpy as np
 import random
 import copy
@@ -59,7 +68,16 @@ class Agent():
         self.memory = ReplayBuffer(action_size, BUFFER_SIZE, BATCH_SIZE, random_seed)
 
     def step(self, state, action, reward, next_state, done, timestep):
-        """Save experience in replay memory, and use random sample from buffer to learn."""
+        """Save experience in replay memory, and use random sample from buffer to learn.
+         Params:
+        =======
+
+            state(float):     The current state of the environment.
+            action(float):    The current action/output of the source network of the agent.
+            reward(float):    The reward obtained by the agent.
+            next_state(float):The next state that agent would be after taking action for the above state.
+            done(boolean):    Indicates if the agent has reached the final state of the environment.
+        """
         # Save experience / reward
         self.memory.add(state, action, reward, next_state, done)
 
@@ -70,7 +88,12 @@ class Agent():
                 self.learn(experiences, GAMMA)
 
     def act(self, state, add_noise=True):
-        """Returns actions for given state as per current policy."""
+        """Returns actions for given state as per current policy.
+        Params:
+        ======
+
+            state(float): The current state of the environment.
+            add_noise(boolean): True indicates to add noise, for exploration."""
         state = torch.from_numpy(state).float().to(device)
         self.actor_local.eval()
         with torch.no_grad():
@@ -81,6 +104,7 @@ class Agent():
         return np.clip(action, -1, 1)
 
     def reset(self):
+        '''resets the noise to initial state'''
         self.noise.reset()
 
     def learn(self, experiences, gamma):

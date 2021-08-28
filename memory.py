@@ -22,7 +22,16 @@ class ReplayBuffer:
         self.seed = random.seed(seed)
 
     def add(self, state, action, reward, next_state, done):
-        """Add a new experience to memory."""
+        """Add a new experience to memory.
+        
+        Params:
+        =======
+            state(float):     The current state of the environment.
+            action(float):    The current action/output of the source network of the agent.
+            reward(float):    The reward obtained by the agent.
+            next_state(float):The next state that agent would be after taking action for the above state.
+            done(boolean):    Indicates if the agent has reached the final state of the environment.
+        """
         e = self.experience(state, action, reward, next_state, done)
         self.memory.append(e)
 

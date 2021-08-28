@@ -1,3 +1,10 @@
+'''Moduel train_agent.py to train the DDPG agent
+@author: Rohith Banka
+
+Initial code has been taken from module that I have developed for Navigation DQN project.
+Reference: https://github.com/Rohithmarktricks/Navigation_DQN/blob/main/train_agent.py
+'''
+
 import numpy as np
 from time import strftime
 import argparse
@@ -7,6 +14,15 @@ from ddpg_agent import Agent
 from collections import deque
 
 def get_environment_info(location):
+    '''Loads the environment
+    Prams:
+    =====
+    location (string): Location of the Reacher.exe environment.
+
+    Output:
+    ======
+    environement info(Tuple): (env, env_info, brain_name, state_size, action_size)
+    '''
     env = UnityEnvironment(file_name=location)
     brain_name = env.brain_names[0]
     brain = env.brains[brain_name]
@@ -29,11 +45,31 @@ def get_environment_info(location):
 
 
 def get_agent(state_size, action_size, seed=10):
+    '''Returns the DDPG Agent
+    
+    Params:
+    ======
+    state_size(int): Dimension of the state space
+    action_size(int): Dimension of the action space
+    seed(int): Number to preserver the configuation.
+
+    '''
     agent = Agent(state_size=state_size, action_size=action_size, random_seed=seed)
     return agent
 
 
 def train_ddpg(env, agent, brain_name, num_episodes=1000, max_t=10000):
+    '''Trains the ddpg agent
+
+    Params:
+    ======
+    env (UnityEnvironment object): Object that contains the Reacher Environment.
+    agent (DDPG Agent object): The DDPG (Actor-Critic) PyTorch DNN
+    brain_name (Unity ML brain name for the agent): This is responsible for the decision.
+    num_episodes (int): total number of episodes that the agent has to be trained for.
+    max_t (int): The total number of time steps in a single episode. This is the length of the trajectory
+
+    '''
     scores = []
     scores_deque = deque(maxlen=100)
     avg_scores = []
@@ -88,6 +124,7 @@ def train_ddpg(env, agent, brain_name, num_episodes=1000, max_t=10000):
 
 
 def main():
+    '''Main trigger method'''
     parser = argparse.ArgumentParser(description="Train DDPG agent",
                                     usage="python train_agent.py <path to Reacher Env> <episodes> <steps>")
     parser.add_argument("location", type=str, help="Input location of the Reacher Environment")

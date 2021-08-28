@@ -1,3 +1,13 @@
+'''
+Module ddpg_agent.py contains the source code of the ddpg Agent, it's off-policy learning algorithm implementation.
+@author: Rohith Banka.
+
+References:
+
+
+'''
+
+
 import numpy as np
 import torch
 import torch.nn.functional as F
@@ -55,12 +65,28 @@ class Agent():
         self.memory = ReplayBuffer(action_size, BUFFER_SIZE, BATCH_SIZE, random_seed)
 
     def hard_copy_weights(self, target, source):
-        """ copy weights from source to target network (part of initialization)"""
+        """ copy weights from source to target network (part of initialization)
+        
+        Params:
+        =======
+            target (PyTorch DNN): Target network.
+            source (PyTorch DNN): Source network
+        """
         for target_param, param in zip(target.parameters(), source.parameters()):
             target_param.data.copy_(param.data)
 
     def step(self, state, action, reward, next_state, done):
-        """Save experience in replay memory, and use random sample from buffer to learn."""
+        """Save experience in replay memory, and use random sample from buffer to learn.
+        
+        Params:
+        =======
+
+            state(float):     The current state of the environment.
+            action(float):    The current action/output of the source network of the agent.
+            reward(float):    The reward obtained by the agent.
+            next_state(float):The next state that agent would be after taking action for the above state.
+            done(boolean):    Indicates if the agent has reached the final state of the environment.
+        """
         # Save experience / reward
         self.memory.add(state, action, reward, next_state, done)
 
@@ -70,7 +96,14 @@ class Agent():
             self.learn(experiences, GAMMA)
 
     def act(self, state, add_noise=True):
-        """Returns actions for given state as per current policy."""
+        """Returns actions for given state as per current policy.
+            
+        Params:
+        ======
+
+            state(float): The current state of the environment.
+            add_noise(boolean): True indicates to add noise, for exploration.
+        """
         state = torch.from_numpy(state).float().to(self.device)
         self.actor_local.eval()
         with torch.no_grad():

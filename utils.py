@@ -1,3 +1,10 @@
+''' Moudle utils.py
+This module contains important functionalities related to device, plotting the scores of the agent.
+@author: Rohith Banka.
+
+'''
+
+
 import torch
 import numpy as np
 import pandas as pd
