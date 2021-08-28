@@ -66,7 +66,7 @@ def main():
 	location = namespace.location
 	actor_path = namespace.actor_path
 
-	env, brain_name, brain, action_size, state_size = get_environment_info(location)
+	env, env_info, brain_name, brain, state_size, action_size = get_environment_info(location)
 	agent = get_agent(state_size=state_size, action_size=action_size)
 
 	try:
